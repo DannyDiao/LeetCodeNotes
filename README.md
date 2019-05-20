@@ -5,39 +5,32 @@
   - 暴力递归，把所有可能的解法递归出来。
 
   ```java
-  package ClimbStairs;
-  
   public class Sol_one {
-  
-      public static void main(String[] args) {
-          int i = climbStairs(44);
-          System.out.println(i);
+      public int climbStairs(int n) {
+          return climb_Stairs(0, n);
       }
   
-      public static int climbStairs(int n) {
-          return climb_Stairs(0,n);
-      }
-      public static int climb_Stairs(int i,int n){
-          if(i>n){
+      public int climb_Stairs(int i, int n) {
+          if (i > n) {
               return 0;
           }
-          if(i == n){
+          if (i == n) {
               return 1;
           }
-          return climb_Stairs(i+1,n) + climb_Stairs(i+2,n);
+          return climb_Stairs(i + 1, n) + climb_Stairs(i + 2, n);
       }
   }
   ```
-
+  
   - 记忆化递归，用一个memo数组储存每次递归的结果，这样可以大大节省时间复杂度。
-
+  
     ```java
     public class Sol_two {
        public int climbStairs(int n) {
             int memo[] = new int[n + 1];
-            return climb_Stairs(0, n, memo);
+          return climb_Stairs(0, n, memo);
         }
-    
+  
         public int climb_Stairs(int i, int n, int memo[]) {
             if (i > n) {
                 return 0;
@@ -110,8 +103,5 @@
         }
     }
     ```
-  
-    
-  
-    
 
+- 101.对称二叉树
