@@ -115,7 +115,7 @@
 
     - 每个树的右子树都与另一个树的左子树镜像对称
     ```java
-   public boolean isSymmetric(TreeNode root) {
+  public boolean isSymmetric(TreeNode root) {
             return isMirror(root, root);
         }
     
@@ -131,6 +131,8 @@
                 && isMirror(a.left, b.right);
         }
     ```
+    
+    
   
 - 104.二叉树的最大深度 Maximum-Depth-Of-Binary-Tree
 
@@ -148,4 +150,28 @@
     }
     ```
 
+
+- 617.合并二叉树 merge-two-binary-trees
+
+  - 递归：先序遍历
+
+    ```java
+    class Solution {
+        public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
     
+            if (t1 == null) {
+                return t2;
+            }
+            if (t2 == null) {
+                return t1;
+            }
+            t1.val = t1.val + t2.val;
+            t1.left = mergeTrees(t1.left, t2.left);
+            t1.right = mergeTrees(t1.right, t2.right);
+            return t1;
+        }
+    }
+    ```
+
+    
+
