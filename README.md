@@ -4,12 +4,12 @@
 
   - 暴力递归，把所有可能的解法递归出来。
 
-  ```java
-  public class Sol_one {
+    ```java
+    public class Sol_one {
       public int climbStairs(int n) {
           return climb_Stairs(0, n);
       }
-  
+    
       public int climb_Stairs(int i, int n) {
           if (i > n) {
               return 0;
@@ -19,8 +19,8 @@
           }
           return climb_Stairs(i + 1, n) + climb_Stairs(i + 2, n);
       }
-  }
-  ```
+    }
+    ```
   
   - 记忆化递归，用一个memo数组储存每次递归的结果，这样可以大大节省时间复杂度。
   
@@ -38,7 +38,7 @@
             if (i == n) {
                 return 1;
             }
-    
+        
             if (memo[i] > 0) {
                 return memo[i];
             }
@@ -48,7 +48,7 @@
             
         }
     ```
-    
+  
   - 动态规划：
   
     不难发现，这个问题可以被分解为一些包含最优子结构的子问题，即它的最优解可以从其子问题的最优解来有效地构建，我们可以使用动态规划来解决这一问题。
@@ -70,17 +70,18 @@
             if (n == 1) {
                 return 1;
             }
-    
+  
             int[] solve = new int[n + 1];
             solve[1] = 1;
             solve[2] = 2;
             for (int i = 3; i <= n; i++) {
                 solve[i] = solve[i - 1] + solve[i - 2];
-    
+        
             }
             return solve[n];
         }
     }
+  
     ```
   
 - 100.相同的树 Same-Tree
@@ -105,3 +106,46 @@
     ```
 
 - 101.对称二叉树
+
+  - 递归：对称是指一个二叉树的左子树和右子树镜像对称。
+
+    那么符合什么条件的时候可以视为镜像对称的呢？
+
+    - 它们的两个根结点具有相同的值
+
+    - 每个树的右子树都与另一个树的左子树镜像对称
+    ```java
+   public boolean isSymmetric(TreeNode root) {
+            return isMirror(root, root);
+        }
+    
+        public boolean isMirror(TreeNode a, TreeNode b) {
+            if (a == null && b == null) {
+                return true;
+            }
+            if (a == null || b == null) {
+                return false;
+            }
+            return (a.val == b.val) 
+                && isMirror(a.right, b.left)
+                && isMirror(a.left, b.right);
+        }
+    ```
+  
+- 104.二叉树的最大深度 Maximum-Depth-Of-Binary-Tree
+
+  - 递归：使用DFS（深度优先搜索）
+
+    ```java
+    class Solution {
+        public int maxDepth(TreeNode root) {
+            if (root == null) {
+                return 0;
+            }
+            int max = Math.max(maxDepth(root.left), maxDepth(root.right));
+            return max + 1;
+        }
+    }
+    ```
+
+    
