@@ -173,5 +173,24 @@
     }
     ```
 
-    
+
+- 226.翻转二叉树 invert-binary-tree
+
+  - 递归：DFS 深度优先遍历
+
+    `遇树就递归，遇空就返回～`
+
+    ```java
+    class Solution {
+        public TreeNode invertTree(TreeNode root) {
+            if(root != null){
+                TreeNode left = root.left;
+                TreeNode right = root.right;
+                root.left = invertTree(right);
+                root.right = invertTree(left);
+            }
+            return root;
+        }
+    }
+    ```
 
