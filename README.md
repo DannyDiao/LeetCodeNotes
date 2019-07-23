@@ -258,4 +258,19 @@
 
       表示对(a < b)作判断，若为真执行冒号前，若为假执行冒号后。
 
-- 
+- 88.合并两个有效数组
+
+  - 合并后排序：最简单直观
+
+    ```java
+    class Solution {
+        public void merge(int[] nums1, int m, int[] nums2, int n) {
+            System.arraycopy(nums2, 0, nums1, m, n);
+            Arrays.sort(nums1);
+        }
+    }
+    ```
+
+  - 从头到尾归并：拷贝num1数组到num3，把num2和num3逐个比较，小的就归并进num1中。
+
+    
