@@ -194,3 +194,68 @@
     }
     ```
 
+- 169.求众数
+
+  - 暴力法：两重循环，一重循环遍历数组，另一重循环统计每个数字出现的次数。
+
+    ```java
+    class Solution {
+        public int majorityElement(int[] nums) {
+            int major = nums.length/2;
+        
+            for(int num:nums){
+                int count = 0;
+                for(int elem:nums){
+                    if(elem == num){
+                        count++;
+                    }
+                }
+                if (count > major){
+                    return num;
+                }
+            }
+                return -1;
+            }
+        }
+    ```
+
+  - 投票法：遇到众数计为+1，其他数计为-1，最后和会大于0。当和为0的时候，下一个数当作候选众数。
+
+    ```java
+    class Solution {
+        public int majorityElement(int[] nums) {
+            int count = 0;
+            Integer major = null;
+            
+            for(int num:nums){
+                if(count == 0){
+                    major = num;
+                }
+                
+                count += (major == num) ? 1 : -1;
+            }
+            
+            return major;
+        }
+    }
+    ```
+
+    - 三目运算符：
+
+      ```java
+      if(a<b){
+        min = a;
+      }else{
+        min = b;
+      }
+      ```
+
+      可以用三目运算符转写为：
+
+      ```java
+      min = (a < b) ? a : b
+      ```
+
+      表示对(a < b)作判断，若为真执行冒号前，若为假执行冒号后。
+
+- 
