@@ -273,4 +273,160 @@
 
   - 从头到尾归并：拷贝num1数组到num3，把num2和num3逐个比较，小的就归并进num1中。
 
+    ```java
+    class Solution {
+        public void merge(int[] nums1, int m, int[] nums2, int n) {
+            int nums3[] = new int[m+n];
+            int length = m + n;
+            int nums2_flag = 0;
+            int nums3_flag = 0;
+            
+            System.arraycopy(nums1, 0, nums3, 0, m);
+            
+            for(int i=0;i<length;i++){
+              //在这里要先对nums2和nums3做越界判断
+                if(nums3_flag == m){
+                    nums1[i] = nums2[nums2_flag];
+                    nums2_flag++;
+                }else if(nums2_flag == n){
+                    nums1[i] = nums3[nums3_flag];
+                    nums3_flag++;
+                }else if(nums3[nums3_flag] < nums2[nums2_flag]){
+                    nums1[i] = nums3[nums3_flag] ;
+                    nums3_flag++;
+                }else{
+                    nums1[i] = nums2[nums2_flag] ;
+                    nums2_flag++;
+                }
+            }
+        }
+    }
+    ```
+
+- 28.实现strStr()
+
+  - 库函数法：直接调用内置的indexOf函数。
+
+    ```java
+    class Solution {
+        public int strStr(String haystack, String needle) {
+            int pos = haystack.indexOf(needle);
+            return pos;
+        }
+    }
+    ```
+
+- 27.移除元素
+
+  - 拷贝覆盖：遍历数组nums，同时设置一个下标flag = 0。当取出的数组元素与val不同时，nums[flag] =    num，无损覆盖，同时flag+1；当取出的数组元素与val相同时，跳过，flag不动，这样下一个元素如果与val不同就会覆盖掉之前的这个元素。
+
+    ```java
+    class Solution {
+        public int removeElement(int[] nums, int val) {
+            int flag = 0;    
+            for(int num:nums){
+                if(num != val){
+                    nums[flag] = num;
+                    flag++;
+                }
+            }
+            return flag;
+        }
+    }
+    ```
+
+- 14.最长公共前缀
+
+  - 水平扫描法：
+
+    ```java
+    class Solution {
+        public String longestCommonPrefix(String[] strs) {
+       if (strs.length == 0) return "";
+       String prefix = strs[0];
+       for (int i = 1; i < strs.length; i++)
+           while (strs[i].indexOf(prefix) != 0) {
+               prefix = prefix.substring(0, prefix.length() - 1);
+               if (prefix.isEmpty()) return "";
+           }        
+       return prefix;
+    }
+    }
+    ```
+
+- 860.柠檬水找零
+
+  - 模拟场景：
+
+    - 当客户给5元零钱时：最好情况
+    - 当客户给10元钱时：如果至少有一张5元零钱，则`true`，否则`false`
+    - 当客户给20元钱时：先检查有没有一张10元和一张5元可以找零，若没有再检查有没有三张5元（贪心算法思想，优先不使用适应性最强的方法）
+
+    ```java
+    class Solution {
+        public boolean lemonadeChange(int[] bills) {
+            int bill_5 = 0;
+            int bill_10 = 0;
+    
+            for (int cur : bills) {
+                if (cur == 5) {
+                    bill_5++;
+                }
+                if (cur == 10) {
+                    if (bill_5 > 0) {
+                        bill_5--;
+                        bill_10++;
+                    } else {
+                        bill_10++;
+                        return false;
+                    }
+                }
+    
+                if (cur == 20) {
+                    if (bill_10 > 0 && bill_5 > 0) {
+                        bill_10--;
+                        bill_5--;
+    
+                    } else if (bill_5 > 2) {
+                        bill_5 = bill_5 - 3;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+    ```
+
+- 455.分发饼干
+
+  - 贪心算法：尽量让小朋友拿到和自己的胃口相近大小的饼干，所以先对胃口数组和饼干数组进行升序排序。
+
+    ```java
+    import java.util.Arrays;
+    
+    class Solution {
+        public int findContentChildren(int[] g, int[] s) {
+            Arrays.sort(g);
+            Arrays.sort(s);
+    
+            int index1 = 0;
+            int index2 = 0;
+            int count = 0;
+    
+            while (index1 < g.length && index2 < s.length) {
+                if (g[index1] <= s[index2]) {
+                    index1++;
+                    index2++;
+                    count++;
+                } else {
+                    index2++;
+                }
+            }
+            return count;
+        }
+    }
+    ```
+
     
